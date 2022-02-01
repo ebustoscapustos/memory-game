@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import MainMenu from '../components/menu/MainMenu.vue'
+import MainMenu from '../components/MainMenu/index'
 
 
 export default{

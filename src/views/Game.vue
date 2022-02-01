@@ -1,11 +1,17 @@
 <template>
-    <div class="div">
-        <h1>game</h1>
+    <div>
+        <field-game/>
     </div>
 </template>
 
-<style lang="scss">
-.div {
-    border: 1px solid #000;
+<script>
+import FieldGame from '../components/game/FieldGame.vue'
+export default {
+  components: { FieldGame },
+    
 }
+</script>
+
+<style lang="scss">
+
 </style>
