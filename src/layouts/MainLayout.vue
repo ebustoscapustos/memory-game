@@ -21,10 +21,11 @@ export default{
     text-align: center;
     width: 100%;
     min-height: 100vh;
+   background: rgb(24,25,42);
+background: linear-gradient(180deg, rgba(24,25,42,1) 33%, rgba(45,46,65,1) 73%); 
 }
 .content {
     border: 1px solid red;
-    margin-top: 20px;
-    padding: 10px calc(50% - 465px);
+    padding: 10px calc(50% - 365px);
 }
 </style>
