@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="game-field">
-      <div class="item-field" v-for="(card, index) in allCards" :key="index">
+      <div class="item-field" v-for="(card, index) in shuffleCards" :key="index">
         <card :card="card" />
       </div>
     </div>
@@ -16,12 +16,12 @@ export default {
   components: { card },
   computed: {
     ...mapGetters(["allCards"]),
-    sortCards() {
-      console.log('start')
+    shuffleCards() {
       for (let i = this.allCards.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [this.allCards[i], this.allCards[j]] = [this.allCards[j], this.allCards[i]];
       }
+      return this.allCards
     },
   },
 };
@@ -29,7 +29,6 @@ export default {
 
 <style lang="scss" scoped>
 .game-field {
-  border: 1px solid blue;
   position: absolute;
   top: 0;
   left: 0;

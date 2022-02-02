@@ -1,5 +1,6 @@
 <template>
-    <div class="front">
+    <div class="front"
+    @click="flip">
         <img v-if="reverse" :src="require(`@/assets/images/${card.image}`)">
         <img class="back" v-if="!reverse" :src="require(`@/assets/images/pokeball.svg`)">
     </div>
@@ -16,6 +17,11 @@ export default {
         card: {
             type: Object,
             default: {}
+        }
+    },
+    methods: {
+        flip() {
+            this.reverse = !this.reverse
         }
     }
 }
