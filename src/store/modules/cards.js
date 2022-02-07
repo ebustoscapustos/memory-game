@@ -117,7 +117,7 @@ export default {
     },
     mutations: {
         removeCard(state, payload) {
-            if (state.step == 2) state.step = 0
+            if (state.step == 18) state.step = 0
             state.step += 1
             state.cards = state.cards.map((card, index) => {
                 if (card && (card.id === payload.firstReverseCard.id || card.id === payload.secondReverseCard.id)) {
@@ -172,7 +172,7 @@ export default {
             return state.cards.filter(card => card && card.reverse)
         },
         isGameOver: (state) => {
-            return state.step === 2
+            return state.step === 18
         }
     },
 }
