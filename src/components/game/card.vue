@@ -1,9 +1,9 @@
 <template>
-        <div class="card"
-        @click="flip">
-            <img class="front" v-if="card.reverse" :src="require(`@/assets/images/${card.image}`)">
-            <img class="back" v-if="!card.reverse" :src="require(`@/assets/images/pokeball.svg`)">
-        </div>
+            <div class="card"
+            @click="flip">
+                <img class="front" v-if="card.reverse" :src="require(`@/assets/images/${card.image}`)">
+                <img class="back" v-if="!card.reverse" :src="require(`@/assets/images/pokeball.svg`)">
+            </div>
 </template>
 
 <script> 
@@ -33,7 +33,7 @@ export default {
 }
 img {
     position: absolute;
-    height: 100%;
+    max-height: 100%;
     width: 100%;
 }
 

@@ -9,7 +9,10 @@ export default {
         },
         startGame(state) {
             state.start = !state.start
-        }
+        },
+        clearScore(state) {
+            state.score = 0
+        },
     },
     actions: {
 

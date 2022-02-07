@@ -37,7 +37,19 @@ export default {
 .menu {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
-    padding-top: 40px
+    margin-bottom: 10px;
+    padding-top: 20px;
+    font-family: "Orbitron", sans-serif;
+}
+@media (max-width: 1000px) {
+    .menu {
+        margin-bottom: 50px;
+        padding-top: 50px;
+    }
+}
+@media (max-width: 600px) {
+    .menu {
+        flex-direction: column;
+    }
 }
 </style>

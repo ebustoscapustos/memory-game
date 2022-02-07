@@ -112,11 +112,13 @@ const cards = [
 
 export default {
     state: {
-        cards: []
+        cards: [],
+        step: 0
     },
     mutations: {
         removeCard(state, payload) {
-            
+            if (state.step == 2) state.step = 0
+            state.step += 1
             state.cards = state.cards.map((card, index) => {
                 if (card && (card.id === payload.firstReverseCard.id || card.id === payload.secondReverseCard.id)) {
                     delete state.cards[index]
@@ -144,7 +146,7 @@ export default {
                     return card
                 }
             })
-        }
+        },
     },
     actions: {
         getAllCards({ commit }) {
@@ -168,6 +170,9 @@ export default {
         },
         getReverseCards: (state) => {
             return state.cards.filter(card => card && card.reverse)
+        },
+        isGameOver: (state) => {
+            return state.step === 2
         }
     },
 }

@@ -17,7 +17,14 @@ export default {
     },
     created() {
     if (localStorage.getItem("results")) {
-      this.results = localStorage.getItem("results").split(',');
+      const localData = localStorage.getItem("results").split(',');
+      if (localData.length > 20) {
+        localData.splice(0, localData.length - 20)
+      }
+      this.results = localData
+    }
+    if (this.results.length > 20) {
+      this.results.shift()
     }
   },
 }

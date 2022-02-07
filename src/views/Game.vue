@@ -1,8 +1,7 @@
 <template>
   <div>
-    <field-game :start="start" @flip="flip" />
-    <game-counter @changeTime="changeTime" @start="startGame" />
-    <result-list />
+    <field-game :start="start" :isGameOver='isGameOver' @flip="flip" />
+    <game-counter @changeTime="changeTime" @start="startGame" :start="start" />
   </div>
 </template>
 
@@ -22,20 +21,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["allCards", "getReverseCards", "getScore"]),
+    ...mapGetters(["allCards", "getReverseCards", "getScore", 'isGameOver']),
     compareCards() {
       if (this.getReverseCards.length < 2) return false;
       const firstReverseCard = this.getReverseCards[0];
       const secondReverseCard = this.getReverseCards[1];
       return firstReverseCard.slug === secondReverseCard.slug;
     },
-    isGameOver() {
-      return this.allCards.every((elem) => elem === undefined);
-    },
   },
   created() {
     if (localStorage.getItem("results")) {
-      this.results = localStorage.getItem("results").split(',');
+      this.results = localStorage.getItem("results").split(",");
     }
   },
   methods: {
@@ -46,6 +42,7 @@ export default {
       "flipCard",
       "changeScore",
       "updateResults",
+      "clearScore",
     ]),
 
     changeTime(time) {
@@ -53,20 +50,22 @@ export default {
     },
 
     calculateScore() {
-      return 50;
+      const score = 1000 * Math.ceil((1 - this.time / 1000) * 100) / 100
+      if (score < 100) return 100
+      return score
     },
     addScore() {
       this.changeScore(this.calculateScore());
     },
 
     startGame() {
-      this.start = true;
+      this.start = !this.start;
       this.getAllCards();
       this.reverseAllCards("front");
       this.interval = setTimeout(() => {
         this.reverseAllCards();
         clearTimeout(this.interval);
-      }, 3000);
+      }, 5000);
     },
 
     flip(card) {
@@ -79,7 +78,7 @@ export default {
       this.interval = setTimeout(() => {
         this.reverseAllCards();
         clearTimeout(this.interval);
-      }, 3000);
+      }, 5000);
     },
   },
   watch: {
@@ -96,9 +95,12 @@ export default {
       }, 600);
     },
     isGameOver(value) {
+      console.log(value)
       if (value) {
         this.results.push(this.getScore);
         localStorage.setItem("results", this.results);
+        this.clearScore();
+        this.start = false
       }
     },
   },
