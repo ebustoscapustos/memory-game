@@ -1,6 +1,6 @@
 <template>
   <div>
-    <field-game :start="start" :isGameOver='isGameOver' @flip="flip" />
+    <field-game :start="start" :isGameOver="isGameOver" @flip="flip" />
     <game-counter @changeTime="changeTime" @start="startGame" :start="start" />
   </div>
 </template>
@@ -21,7 +21,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["allCards", "getReverseCards", "getScore", 'isGameOver']),
+    ...mapGetters([
+      "allCards",
+      "getReverseCards",
+      "getScore",
+      "isGameOver",
+      "step",
+    ]),
     compareCards() {
       if (this.getReverseCards.length < 2) return false;
       const firstReverseCard = this.getReverseCards[0];
@@ -43,6 +49,8 @@ export default {
       "changeScore",
       "updateResults",
       "clearScore",
+      "stepCounter",
+      "stepRefresh",
     ]),
 
     changeTime(time) {
@@ -50,22 +58,23 @@ export default {
     },
 
     calculateScore() {
-      const score = 1000 * Math.ceil((1 - this.time / 1000) * 100) / 100
-      if (score < 100) return 100
-      return score
+      const score = (1000 * Math.ceil((1 - this.time / 1000) * 100)) / 100;
+      if (score < 100) return 100;
+      return score;
     },
     addScore() {
       this.changeScore(this.calculateScore());
     },
 
     startGame() {
+      this.stepRefresh();
       this.start = !this.start;
       this.getAllCards();
       this.reverseAllCards("front");
       this.interval = setTimeout(() => {
         this.reverseAllCards();
         clearTimeout(this.interval);
-      }, 5000);
+      }, 3000);
     },
 
     flip(card) {
@@ -78,7 +87,7 @@ export default {
       this.interval = setTimeout(() => {
         this.reverseAllCards();
         clearTimeout(this.interval);
-      }, 5000);
+      }, 3000);
     },
   },
   watch: {
@@ -88,6 +97,7 @@ export default {
       const firstReverseCard = this.getReverseCards[0];
       const secondReverseCard = this.getReverseCards[1];
       setTimeout(() => {
+        this.stepCounter();
         this.removeCard({
           firstReverseCard,
           secondReverseCard,
@@ -95,12 +105,11 @@ export default {
       }, 600);
     },
     isGameOver(value) {
-      console.log(value)
       if (value) {
+        this.start = !this.start;
         this.results.push(this.getScore);
         localStorage.setItem("results", this.results);
         this.clearScore();
-        this.start = false
       }
     },
   },

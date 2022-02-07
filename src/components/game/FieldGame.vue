@@ -3,7 +3,7 @@
     <div class="game-over" v-if="isGameOver">
       <h1 class="congratulation">Congratulations! You have won!</h1>
     </div>
-    <div class="game-field"  v-if="!isGameOver">
+    <div class="game-field" v-if="!isGameOver">
       <div
         :class="[
           allCards[number - 1] && start ? 'item-field' : 'item-field-disabled',
@@ -108,7 +108,7 @@ export default {
   position: relative;
   display: block;
   font-family: "Orbitron", sans-serif;
-  margin: 0 10px
+  margin: 0 10px;
 }
 
 .wrap:after {
@@ -118,6 +118,5 @@ export default {
 }
 
 @media screen and (min-width: 1000px) {
- 
 }
 </style>

@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import MainLayout from './layouts/MainLayout.vue';
+import MainLayout from "./layouts/MainLayout.vue";
 
 export default {
-  components: {MainLayout},
-  name: 'App',
-}
-    MainLayout;
+  components: { MainLayout },
+  name: "App",
+};
+MainLayout;
 </script>
 

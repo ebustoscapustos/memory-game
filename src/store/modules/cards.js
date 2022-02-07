@@ -117,8 +117,6 @@ export default {
     },
     mutations: {
         removeCard(state, payload) {
-            if (state.step == 18) state.step = 0
-            state.step += 1
             state.cards = state.cards.map((card, index) => {
                 if (card && (card.id === payload.firstReverseCard.id || card.id === payload.secondReverseCard.id)) {
                     delete state.cards[index]
@@ -147,6 +145,12 @@ export default {
                 }
             })
         },
+        stepCounter(state) {
+            state.step += 1
+        },
+        stepRefresh(state) {
+            if (state.step == 18) state.step = 0
+        }
     },
     actions: {
         getAllCards({ commit }) {
@@ -173,6 +177,9 @@ export default {
         },
         isGameOver: (state) => {
             return state.step === 18
+        },
+        step: (state) => {
+            return state.step
         }
     },
 }

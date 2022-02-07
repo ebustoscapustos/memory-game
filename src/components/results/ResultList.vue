@@ -46,8 +46,8 @@ export default {
   margin: 0 10px;
 }
 .empty {
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 40px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 40px;
 }
 </style>
