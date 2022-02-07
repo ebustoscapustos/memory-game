@@ -1,47 +1,40 @@
 <template>
-    <div class="front"
-    @click="flip">
-        <img v-if="reverse" :src="require(`@/assets/images/${card.image}`)">
-        <img class="back" v-if="!reverse" :src="require(`@/assets/images/pokeball.svg`)">
-    </div>
+        <div class="card"
+        @click="flip">
+            <img class="front" v-if="card.reverse" :src="require(`@/assets/images/${card.image}`)">
+            <img class="back" v-if="!card.reverse" :src="require(`@/assets/images/pokeball.svg`)">
+        </div>
 </template>
 
-<script>
+<script> 
 export default {
-    data() {
-        return {
-            reverse: true
-        }
-    },
     props: {
         card: {
             type: Object,
-            default: {}
         }
     },
     methods: {
         flip() {
-            this.reverse = !this.reverse
+            this.$emit('flip', this.card)
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.front {
+
+.card {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 100%;
 }
 img {
     position: absolute;
     height: 100%;
     width: 100%;
-    top: 0; left: 0; bottom: 0; right: 0;
 }
-.back {
-    height: 70%;
-    top: 15%;
-}
+
 </style>

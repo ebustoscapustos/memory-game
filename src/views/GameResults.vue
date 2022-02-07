@@ -1,3 +1,24 @@
 <template>
-    <h1>results</h1>
+    <div>
+        <result-list :results='results'/>
+    </div>
 </template>
+
+
+<script>
+import ResultList from '../components/results/ResultList.vue';
+
+export default {
+  components: { ResultList },
+    data() {
+        return {
+            results: []
+        }
+    },
+    created() {
+    if (localStorage.getItem("results")) {
+      this.results = localStorage.getItem("results").split(',');
+    }
+  },
+}
+</script>

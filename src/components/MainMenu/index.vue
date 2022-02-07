@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <navigation-btn
+    <div class="menu">
+        <navigation-item
         v-for="button in menuButtons"
         :key='button.path'
         :dataButton='button'
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import NavigationBtn from './NavigationItem.vue'
+import NavigationItem from './NavigationItem.vue'
 
 export default {
     name: 'MainMenu',
@@ -27,7 +27,17 @@ export default {
             ]
         }
     },
-    components: {NavigationBtn},
+    components: {NavigationItem},
     
 }
 </script>
+
+
+<style lang="scss" scoped>
+.menu {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    padding-top: 40px
+}
+</style>

@@ -1,33 +1,46 @@
 <template>
-  <div class="wrap">
-    <div class="game-field">
-      <div class="item-field" v-for="(card, index) in shuffleCards" :key="index">
-        <card :card="card" />
+    <div class="wrap">
+      <div class="game-field">
+        <div :class="[start ? 'item-field' : 'item-field-disabled']" v-for="number in 36" :key="number">
+          <card
+            v-if="allCards[number - 1] && start"
+            :card="allCards[number - 1]"
+            @flip="$emit('flip', allCards[number - 1])"
+          />
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import card from "./card.vue";
+import GameCounter from './GameCounter.vue';
 
 export default {
-  components: { card },
+  data() {
+    return {
+      flipCardSlug: "",
+      interval: null,
+    };
+  },
+  props: {
+    start: {
+      type: Boolean
+    }
+  },
+  components: { card, GameCounter },
   computed: {
-    ...mapGetters(["allCards"]),
-    shuffleCards() {
-      for (let i = this.allCards.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [this.allCards[i], this.allCards[j]] = [this.allCards[j], this.allCards[i]];
-      }
-      return this.allCards
-    },
+    ...mapGetters(["allCards", "getReverseCards"]),
+  
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.item-field-disabled {
+  background-color: aqua;
+}
 .game-field {
   position: absolute;
   top: 0;
@@ -51,7 +64,6 @@ export default {
     rgba(242, 209, 168, 1) 71%
   );
   border-image-slice: 1;
-  border-radius: 5%;
   background: rgb(101, 103, 149);
   background: linear-gradient(
     180deg,
